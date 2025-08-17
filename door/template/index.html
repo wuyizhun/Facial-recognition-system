@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    </meta>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="{% static 'js/index_js.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <title>首頁</title>
+</head>
+
+<body>
+    <!-- 背景 -->
+    <div
+        style="width: 100vw; height: 100vh; display: flex; background: url(../static/images/background.jpg); background-repeat: no-repeat; background-attachment: fixed; background-position: center; background-size: cover; overflow: hidden;">
+        <div style="width: 60%; height: 10%;">
+        </div>
+        <form id="form" method="post" style="width: 40%; height: 100%; background-color: #F8F8F9; overflow: hidden;">
+            {% csrf_token %}
+            <div style="padding: 48px; text-align: center">
+                <div style="font-size: 55px; color: #2B7081;"><b>鑰不鑰臉</b></div>
+                <div style="font-size: 40px; color: #2B7081; line-height: 0.5;"><b>之</b></div>
+                <div style="font-size: 55px; color: #2B7081;"><b>人臉門禁管理系統</b></div><br><br>
+            </div>
+            <div style="font-size: 54px; padding: 10px;">
+                <div style="font-size: 50px; color: #183F58; text-align: center"><b>登入</b></div>
+            </div>
+            <div style="margin: auto; width: 60%;">
+                <div style="font-size: 26px; color: #183F58;">
+                    <b>帳號</b>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" id="user" class="form-control" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default">
+                </div>
+                <div style="font-size: 26px; color: #183F58;">
+                    <b>密碼</b>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" id="password" class="form-control" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default">
+                </div>
+            </div>
+            <div style="margin: auto; width: 60%;">
+                <div id="error" style="font-size: 24px;"></div>
+            </div>
+            <br />
+            <br />
+            <div style="margin: auto; width: 80%;">
+                <div style="display: flex; align-content: flex-end; width: 60%; margin-left: 75%;">
+                    <button type="submit" id="submit" class="btn btn-secondary"
+                        style="font-size: 20px; background-color: #fe8524; color: white; border: #fe8524;"><b>送出</b></button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+    <!-- Bootstrap Modal -->
+    <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="alertModalLabel">提示</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="alertModalBody">
+                    <!-- 動態顯示的訊息 -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="indexconfirm">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

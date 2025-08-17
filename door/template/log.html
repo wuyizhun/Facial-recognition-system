@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件紀錄</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/zh.js"></script>
+
+</head>
+
+<body>
+
+    {% include "header.html" %}
+    <div id="log">
+        <div class="sticky-header" style="display: flex; align-items: center;width: 98%;">
+            <h2>事件紀錄</h2>
+            <div class="d-flex ms-auto">
+                <input type="text" id="startDate" class="form-control" placeholder="開始日期"
+                    style="margin-right: 10px; width: 200px;">
+                <input type="text" id="endDate" class="form-control" placeholder="結束日期"
+                    style="margin-right: 10px; width: 200px;">
+                <button class="btn btn-secondary" id="dateButton">
+                    <img id="icon" src="{% static 'icon/search.png' %}" style="vertical-align: middle;">
+                    <span style="vertical-align: middle;">搜尋</span>
+                </button>
+            </div>
+        </div>
+
+
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="sticky" style="width: 130px;">時間</th>
+                    <th class="sticky" style="width: 130px;">ID</th>
+                    <th class="sticky" style="width: 130px;">姓名</th>
+                    <th class="sticky" style="width: 130px;">身分</th>
+                    <th class="sticky" style="width: 130px;">操作</th>
+                </tr>
+            </thead>
+            <tbody id="eventRecordsBody">
+                <!-- 這裡用於顯示事件記錄的內容，初始為空 -->
+            </tbody>
+        </table>
+        <div id="noDataMessage" style="display: none; text-align: center; margin-top: 20px;">
+            查無資料!
+        </div>
+
+        <div class="sticky-footer" style="text-align: right;width: 98%;">
+            <nav style="display: inline-block;margin-right: 10px;" aria-label="Page navigation example"
+                id="pagination-controls">
+                <!-- 頁碼按鈕將通過 JavaScript 動態插入 -->
+            </nav>
+            <span style="display: inline-block;">每頁顯示資料筆數:</span>
+            <select id="recordsPerPage" class="form-select" style="width: 80px; display: inline-block;">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+            </select>
+            <span id="totalRecordsCount"></span>
+        </div>
+
+
+
+
+    </div>
+    <div class="modal fade" id="dateErrorModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="text-align: center;">
+                    結束日期不能小於開始日期!
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
+
+
+<script>
+
+    var eventRecordsUrl = "{% url 'get_event_records' %}";
+    var earliestAndLatestDateUrl = "{% url 'get_earliest_and_latest_date' %}";
+    var csrfToken = "{{ csrf_token }}";
+
+
+</script>
+<script src="{% static 'js/log.js' %}"></script>
